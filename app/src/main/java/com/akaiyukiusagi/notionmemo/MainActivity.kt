@@ -10,6 +10,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
@@ -17,15 +20,18 @@ import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var text: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeListener()
 
-        // 起動時に最後に開始した時間を読み込み
+        // 起動時にメモの内容を読み込み
         val fileName = "memo.txt"
-        readFiles(fileName)?.let{ editText.setText(it) }
+        text = readFiles(fileName).toString()
+        editText.setText(text)
 
         // textEditの文字を編集したら 保存 & 通知に表示
         editText.addTextChangedListener(object : TextWatcher {
@@ -43,13 +49,34 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // 通知送信用
+    // タイトルバー適用 //
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_title_bar, menu)
+        return true
+    }
+    
+    // タイトルバーのボタンを押した時の挙動 //
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_share -> { // 共有
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, text)
+                }
+                startActivity(intent)
+            }
+        }
+        return true
+    }
+
+    // 通知送信用 //
     private fun pushNotification(title: String = "", text: String = "") {
         val notification: Notification?
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val chID = getString(R.string.app_name) // アプリ名をチャンネルIDとして利用
 
-        // クリックされた時の遷移先 //
+        // クリックされた時の遷移先
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -121,6 +148,5 @@ class MainActivity : AppCompatActivity() {
             editText.setText("買う物\n")
         }
     }
-
 
 }
