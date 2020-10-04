@@ -7,11 +7,44 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#00000000"
         android:gravity="top"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name" />
+        android:inputType="textMultiLine"
+        android:text="一行目がタイトルになります\n二行目以降も表示されます" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        tools:layout_editor_absoluteX="1dp">
+
+        <Button
+            android:id="@+id/buttonBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="買う物" />
+
+        <Button
+            android:id="@+id/buttonTodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="やること" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="clear" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
