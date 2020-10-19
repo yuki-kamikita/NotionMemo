@@ -1,6 +1,7 @@
 package com.akaiyukiusagi.notionmemo
 
 import android.app.Notification
+import android.app.Notification.VISIBILITY_PUBLIC
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -14,6 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import java.io.File
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // タイトルバー適用 //
+    // カスタムタイトルバーを適用 //
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_title_bar, menu)
         return true
@@ -82,21 +84,21 @@ class MainActivity : AppCompatActivity() {
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
-        // 通知チャンネルIDを生成してインスタンス化
+        // 通知チャンネルIDを生成してインスタンス化 //
         // IMPORTANCEはポップアップ（正式名ヘッドアップ通知）するならHIGH以上にする
-        val notificationChannel = NotificationChannel(chID, chID, NotificationManager.IMPORTANCE_LOW)
+        val notificationChannel = NotificationChannel(chID, chID, NotificationManager.IMPORTANCE_DEFAULT)
         // 通知の説明のセット
         notificationChannel.description = chID
         // 通知チャンネルの作成
         notificationManager.createNotificationChannel(notificationChannel)
         // 通知の生成と設定とビルド
         notification = Notification.Builder(this, chID)
-            .setAutoCancel(true)
             .setContentTitle(title)                            // 通知タイトル
             .setContentText(text)                              // 通知内容
             .setSmallIcon(android.R.drawable.ic_menu_edit)     // 通知用アイコン
             .setContentIntent(pendingIntent)                   // 通知タップ時
             .setAutoCancel(false)                              // タップしても消さない
+            .setVisibility(VISIBILITY_PUBLIC)                  // ロック画面で内容を表示 https://developer.android.com/training/notify-user/build-notification?hl=ja#lockscreenNotification
             .build()                                           // 通知のビルド
         notification.flags = Notification.FLAG_NO_CLEAR        // スワイプで消さない
 
