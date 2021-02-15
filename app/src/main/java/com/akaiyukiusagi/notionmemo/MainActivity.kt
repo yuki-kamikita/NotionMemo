@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_title_bar, menu)
         return true
     }
-    
+
     // タイトルバーのボタンを押した時の挙動 //
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -140,15 +140,15 @@ class MainActivity : AppCompatActivity() {
 
     // ボタンを押した時の挙動 //
     private fun initializeListener() {
-        buttonClear.setOnClickListener {
-            editText.setText("")
-        }
-        buttonTodo.setOnClickListener {
-            editText.setText("やること\n")
-        }
-        buttonBuy.setOnClickListener {
-            editText.setText("買う物\n")
-        }
+//        buttonClear.setOnClickListener {
+//            editText.setText("")
+//        }
+//        buttonTodo.setOnClickListener {
+//            editText.setText("やること\n")
+//        }
+//        buttonBuy.setOnClickListener {
+//            editText.setText("買う物\n")
+//        }
     }
 
 }
