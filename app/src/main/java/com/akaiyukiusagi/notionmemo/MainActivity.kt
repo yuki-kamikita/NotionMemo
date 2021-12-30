@@ -13,9 +13,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import java.io.File
@@ -152,3 +150,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+// TODO: 通知音を消す
+// TODO: 起動を検知して通知を出す
